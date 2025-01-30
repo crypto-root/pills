@@ -5,6 +5,8 @@ interface PillData {
   color: string;
   id: string;
   name: string;
+  isUnique?: boolean;
+  effect?: string;
 }
 
 interface EasterEgg {
@@ -12,6 +14,13 @@ interface EasterEgg {
   hint: string;
   unlocked: boolean;
 }
+
+// Define special elemental pill types
+const uniquePillTypes = [
+  { name: 'FIRE', color: '#FF4500' },
+  { name: 'THUNDER', color: '#00FFFF' },
+  { name: 'LIGHTNING', color: '#FFFF00' },
+];
 
 function App() {
   const [clicks, setClicks] = useState(0);
@@ -30,7 +39,7 @@ function App() {
 
   useEffect(() => {
     const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-    
+
     const handleKeyDown = (e: KeyboardEvent) => {
       const newKonami = [...konami, e.key];
       if (newKonami.length > konamiCode.length) {
@@ -53,7 +62,7 @@ function App() {
   }
 
   function generateRandomColor() {
-    return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    return '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
   }
 
   function generateRandomId() {
@@ -95,11 +104,33 @@ function App() {
   }
 
   function createNewPill() {
+    // 5% chance of generating a unique elemental pill
+    const chance = Math.random();
+    if (chance < 0.05) {
+      // pick a random special pill type
+      const specialIndex = Math.floor(Math.random() * uniquePillTypes.length);
+      const specialType = uniquePillTypes[specialIndex];
+      const newPill: PillData = {
+        color: specialType.color,
+        id: `SPECIAL-${specialType.name}-${generateRandomId()}`,
+        name: `PILL-${specialType.name}`,
+        isUnique: true,
+        effect: specialType.name,
+      };
+
+      setPills(prev => [...prev, newPill]);
+      setTotalPills(prev => prev + 1);
+      setStatus(`New UNIQUE pill unlocked: ${newPill.name}!`);
+      setTimeout(() => setStatus(''), 2000);
+      return;
+    }
+
+    // Otherwise generate a normal pill
     const color = generateRandomColor();
     const newPill = {
       color,
       id: generateRandomId(),
-      name: generateRandomName()
+      name: generateRandomName(),
     };
 
     // Easter egg for perfect RGB balance
@@ -185,7 +216,7 @@ function App() {
           )}
 
           <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-white mb-2">Pill Clicker Game</h1>
+            <h1 className="text-4xl font-bold text-white mb-2">The PillVerse Collector</h1>
             <div className="flex items-center justify-center gap-4 text-white">
               <Trophy className="w-6 h-6" />
               <span className="text-xl">Total Pills: {totalPills}</span>
@@ -194,7 +225,7 @@ function App() {
 
           <div className="bg-white/10 backdrop-blur-lg rounded-xl p-6 mb-8">
             <div className="text-center text-white text-xl mb-4">
-              Clicks: {clicks}/{requiredClicks}
+              Clicks: {clicks}/<span className="hover:text-white cursor-help" title="Many">???</span>
             </div>
             
             <div className="bg-white/20 rounded-full h-4 mb-6">
@@ -242,7 +273,7 @@ function App() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {pills.map((pill) => (
               <div key={pill.id} 
-                   className="bg-white/10 backdrop-blur-lg rounded-xl p-6 transform hover:scale-105 transition-all duration-300"
+                   className={`bg-white/10 backdrop-blur-lg rounded-xl p-6 transform hover:scale-105 transition-all duration-300 ${pill.isUnique ? 'border-2 border-red-500 animate-pulse' : ''}`}
               >
                 <div className="flex items-center gap-4 mb-4">
                   <div className="pill-shape">
@@ -250,18 +281,23 @@ function App() {
                     <div className="pill-half right" style={{ backgroundColor: pill.color }} />
                   </div>
                   <div className="text-white">
-                    <div className="font-bold">{pill.name}</div>
+                    <div className="font-bold flex items-center gap-2">
+                      {pill.name}
+                      {pill.isUnique && (
+                        <span className="text-xs bg-red-500 text-white px-2 py-1 rounded-full uppercase font-bold">Unique</span>
+                      )}
+                    </div>
                     <div className="text-sm opacity-70">ID: {pill.id.slice(0, 8)}...</div>
                   </div>
                 </div>
                 
                 <button
-                  onClick={() => downloadNFT(pill)}
+                  // onClick={() => downloadNFT(pill)}
                   className="w-full bg-white/10 hover:bg-white/20 text-white font-medium py-2 px-4 rounded-lg 
                            flex items-center justify-center gap-2 transition-colors duration-200"
                 >
                   <Download className="w-4 h-4" />
-                  <span>Download NFT</span>
+                  <span>NFT Comming Soon!</span>
                 </button>
               </div>
             ))}
@@ -273,9 +309,9 @@ function App() {
       <footer className="relative z-20 bg-white/10 backdrop-blur-lg border-t border-white/20 py-6">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center text-white">
-            <p className="text-sm">© 2077 PillVerse. All rights reserved in this quantum realm.</p>
+            <p className="text-sm">© 2077 PillVerse. The PillVerse and the PillVerse Logo are trademarks of PillVerse, INC.</p>
             <p className="text-xs mt-2 text-white/60">
-              <span className="hover:text-white cursor-help" title="Is this really the year?">1970</span> |  
+              <span className="hover:text-white cursor-help" title="Is this really the year?">1984</span> |  
               Version <span className="hover:text-white cursor-help" title="There might be more than meets the eye...">1.0.0</span>
             </p>
           </div>
