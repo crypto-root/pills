@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Pill, Download, Trophy, Github, Twitter, Disc as Discord, Coffee, Sparkles, Lock } from 'lucide-react';
+import { Pill, Download, Trophy, Disc as Discord, Coffee, Sparkles, Lock } from 'lucide-react';
 
 interface PillData {
   color: string;
@@ -170,18 +170,26 @@ function App() {
               <button onClick={() => setShowLore(!showLore)} className="hover:text-purple-200 transition-colors">
                 Lore
               </button>
-              <Coffee 
+              <button 
                 className="w-5 h-5 text-white hover:text-yellow-300 cursor-pointer transition-colors" 
-                onClick={handleCoffeeClick}
-              />
-              <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-200">
-                <Github className="w-5 h-5" />
+                onClick={handleCoffeeClick}>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF" fill="none">
+                  <path d="M18.2505 10.5H19.6403C21.4918 10.5 22.0421 10.7655 21.9975 12.0838C21.9237 14.2674 20.939 16.8047 17 17.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  <path d="M5.94627 20.6145C2.57185 18.02 2.07468 14.3401 2.00143 10.5001C1.96979 8.8413 2.45126 8.5 4.65919 8.5H15.3408C17.5487 8.5 18.0302 8.8413 17.9986 10.5001C17.9253 14.3401 17.4281 18.02 14.0537 20.6145C13.0934 21.3528 12.2831 21.5 10.9194 21.5H9.08064C7.71686 21.5 6.90658 21.3528 5.94627 20.6145Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+                  <path d="M11.3089 2.5C10.7622 2.83861 10.0012 4 10.0012 5.5M7.53971 4C7.53971 4 7 4.5 7 5.5M14.0012 4C13.7279 4.1693 13.5 5 13.5 5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              </button>
+              <a href="https://pump.fun" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-200">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF" fill="none">
+                  <path d="M11 7H17M11 5V9C11 10.6569 12.3431 12 14 12C15.6569 12 17 10.6569 17 9V5C17 3.34315 15.6569 2 14 2C12.3431 2 11 3.34315 11 5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M4 14H6.39482C6.68897 14 6.97908 14.0663 7.24217 14.1936L9.28415 15.1816C9.54724 15.3089 9.83735 15.3751 10.1315 15.3751H11.1741C12.1825 15.3751 13 16.1662 13 17.142C13 17.1814 12.973 17.2161 12.9338 17.2269L10.3929 17.9295C9.93707 18.0555 9.449 18.0116 9.025 17.8064L6.84211 16.7503" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                  <path d="M13 16.5L17.5928 15.0889C18.407 14.8352 19.2871 15.136 19.7971 15.8423C20.1659 16.3529 20.0157 17.0842 19.4785 17.3942L11.9629 21.7305C11.4849 22.0063 10.9209 22.0736 10.3952 21.9176L4 20.0199" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
               </a>
               <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-200">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="https://discord.com" target="_blank" rel="noopener noreferrer" className="text-white hover:text-purple-200">
-                <Discord className="w-5 h-5" />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="#FFFFFF" fill="none">
+                    <path d="M3 21L10.5484 13.4516M21 3L13.4516 10.5484M13.4516 10.5484L8 3H3L10.5484 13.4516M13.4516 10.5484L21 21H16L10.5484 13.4516" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
               </a>
             </div>
           </div>
