@@ -167,7 +167,7 @@ function App() {
               <span className="ml-2 text-white font-bold">PillVerse</span>
             </div>
             <div className="flex items-center space-x-4">
-              <button onClick={() => setShowLore(!showLore)} className="text-white hover:text-purple-200 transition-colors">
+              <button onClick={() => setShowLore(!showLore)} className="hover:text-purple-200 transition-colors">
                 Lore
               </button>
               <Coffee 
